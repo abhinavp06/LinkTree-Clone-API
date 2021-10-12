@@ -1,0 +1,6 @@
+SERVER:
+        User Model:
+            1. Hashing and storing passwords. DONE
+            2. Storing profile pic of user. (Later)
+            3. isPremium user (add background, change default profile pic) (Later)
+        
