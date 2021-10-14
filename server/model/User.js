@@ -31,15 +31,9 @@ const userSchema = new mongoose.Schema(
             required: true
         },
         userLinks:[{ 
-            linkName:{
-                type: String,
-                required: true
-            },
-            linkBody:{
-                type: String,
-                required: true
-            }
-        }]
+            linkName: String,
+            linkBody: String
+        }],
     },
     { timestamps: true }
 )

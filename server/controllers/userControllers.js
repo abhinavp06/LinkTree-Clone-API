@@ -65,10 +65,9 @@ exports.isAuthenticatedTest = async (req,res) => {
 
 //  PROFILES AND LINKS
 
-exports.showUserProfile = async (req,res, result) => {
+exports.showUserProfile = async (req,res) => {
     const {id} = req.params 
-    console.log(result)
-    User.find({username: id}, {'_id': 0, 'username': 1, 'name': 1, 'bio': 1, 'userLinks': 1}, function(err, docs) { 
+    User.find({username: id}, {'_id': 0, 'password': 0, '__v': 0, 'createdAt': 0, 'updatedAt': 0}, function(err, docs) { 
         if(err){
             res.json(err)
         }else{
@@ -95,54 +94,18 @@ exports.ifProfileExists = async (req,res,next) => {
 
 exports.createLink = async (req,res) => {
     const {id} = req.params
-    const ReqLinkName = req.body.linkName
-    const ReqLinkBody = req.body.linkBody
-    var objLink = {"linkName": ReqLinkName, "linkBody": ReqLinkBody}
-    var unconvertedUserDBId = {}
-    User.find({username: id}, {'_id': 1}, function(err, docs) { 
-        if(err){
-            res.json(err)
-        }else{
-            unconvertedUserDBId = docs
-        }
-    })
-    var userDBId = mongoose.Types.ObjectId(unconvertedUserDBId)
-    User.findById(userDBId, function(err, user){
-        if(err){
-            res.json(err)
-        }else{
-            res.json(user.name)
-        }
-    })
-    // User.update(
-    //     { _id: userDBId }, 
-    //     { $push: { userLinks: objLink } },
-    //     res.json({message:`${User.userLinks}`})
-    // );
-    // User.findOneAndUpdate(
-    //     {_id: userDBId},
-    //     {$push: 
-    //         {userLinks: objLinks}
-    //     },
-    //     res.json({message: `Link created ${objLinks}`})
-    // )
-    // User.findByIdAndUpdate(userDBId, {linkName: req.body, linkBody: req.body}, function(error, docs){
-    //     if(error){
-    //         res.json(error)
-    //     }else{
-    //         res.json(docs)
-    //     }
-    // })   
-    // User.findOneAndUpdate(
-    //     { _id: userDBId },
-    //     { $push: {
-    //         userLinks: {
-    //             "linkName" : ReqLinkName,
-    //             "linkBody" : ReqLinkBody
-    //         }
-    //     }},
-    //     res.json(`Link created`)
-    // )
+    
+    User.findByIdAndUpdate(
+        req.user._id,
+        { $push: {"userLinks": req.body}},
+        {  safe: true, upsert: true},
+          function(err, model) {
+            if(err){
+               console.log(err);
+               return res.send(err);
+            }
+             return res.json(`Link created. You can visit your profile at ${`http://localhost:8000/${id}`}`);
+    });
 
 }
 
