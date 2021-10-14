@@ -65,9 +65,9 @@ exports.isAuthenticatedTest = async (req,res) => {
 
 //  PROFILES AND LINKS
 
-exports.showUserProfile = async (req,res) => {
-    const {id} = req.params
-    
+exports.showUserProfile = async (req,res, result) => {
+    const {id} = req.params 
+    console.log(result)
     User.find({username: id}, {'_id': 0, 'username': 1, 'name': 1, 'bio': 1, 'userLinks': 1}, function(err, docs) { 
         if(err){
             res.json(err)
@@ -77,19 +77,27 @@ exports.showUserProfile = async (req,res) => {
     })
 }
 
+exports.ifProfileExists = async (req,res,next) => {
+    const {id} = req.params
+    User.exists({ username: id }, function(err, result) {
+        if (err) {
+          res.send(err)
+        } else {
+            if(result){
+                next()
+            }
+            else{
+                res.status(404).json(`Invalid link`)
+            }
+        }
+      });
+}
+
 exports.createLink = async (req,res) => {
     const {id} = req.params
-    
-    // const { linkName, linkBody } = req.body;
-
-    // const newLink = new Link({ linkName, linkBody })
-
-    // try {
-    //     await newLink.save();
-    //     res.status(201).json(`${id}`);
-    // } catch (error) {
-    //     res.status(409).json({ message: error.message });
-    // }
+    const ReqLinkName = req.body.linkName
+    const ReqLinkBody = req.body.linkBody
+    var objLink = {"linkName": ReqLinkName, "linkBody": ReqLinkBody}
     var unconvertedUserDBId = {}
     User.find({username: id}, {'_id': 1}, function(err, docs) { 
         if(err){
@@ -99,13 +107,43 @@ exports.createLink = async (req,res) => {
         }
     })
     var userDBId = mongoose.Types.ObjectId(unconvertedUserDBId)
-    User.findByIdAndUpdate(userDBId, {linkName: req.body, linkBody: req.body}, function(error, docs){
-        if(error){
-            res.json(error)
+    User.findById(userDBId, function(err, user){
+        if(err){
+            res.json(err)
         }else{
-            res.json(docs)
+            res.json(user.name)
         }
     })
+    // User.update(
+    //     { _id: userDBId }, 
+    //     { $push: { userLinks: objLink } },
+    //     res.json({message:`${User.userLinks}`})
+    // );
+    // User.findOneAndUpdate(
+    //     {_id: userDBId},
+    //     {$push: 
+    //         {userLinks: objLinks}
+    //     },
+    //     res.json({message: `Link created ${objLinks}`})
+    // )
+    // User.findByIdAndUpdate(userDBId, {linkName: req.body, linkBody: req.body}, function(error, docs){
+    //     if(error){
+    //         res.json(error)
+    //     }else{
+    //         res.json(docs)
+    //     }
+    // })   
+    // User.findOneAndUpdate(
+    //     { _id: userDBId },
+    //     { $push: {
+    //         userLinks: {
+    //             "linkName" : ReqLinkName,
+    //             "linkBody" : ReqLinkBody
+    //         }
+    //     }},
+    //     res.json(`Link created`)
+    // )
+
 }
 
 exports.editLink = async (req,res) => {

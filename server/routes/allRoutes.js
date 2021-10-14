@@ -1,5 +1,5 @@
 const express = require("express")
-const { signUpUser, signInUser, signOutUser, isLoggedIn, isLoggedInTest, urlTest, showUserProfile, isAuthenticated, createLink, isAuthenticatedTest } = require("../controllers/userControllers")
+const { signUpUser, signInUser, signOutUser, isLoggedIn, isLoggedInTest, urlTest, showUserProfile, isAuthenticated, createLink, isAuthenticatedTest, ifProfileExists } = require("../controllers/userControllers")
 
 const router = express.Router()
 
@@ -17,6 +17,6 @@ router.post('/:id', isAuthenticated, isAuthenticatedTest)
 router.post('/:id', urlTest)
 
 // GET ROUTES
-router.get('/:id', showUserProfile)
+router.get('/:id', ifProfileExists, showUserProfile)
 
 module.exports = router

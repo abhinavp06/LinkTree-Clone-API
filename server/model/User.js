@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema(
         name:{
             type: String,
             required: true,
-            min: 1
+            min: 1,
+            unique: false
         },
         email:{
             type: String,
@@ -29,11 +30,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        //profile pic 
-        // isPremiumUser:{
-        //     type: Number,
-        //     default: 0
-        // },
         userLinks:[{ 
             linkName:{
                 type: String,
