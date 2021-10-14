@@ -1,20 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 
-const linkSchema = new mongoose.Schema(
-    {
-        linkName:{
-            type: String,
-            required: true
-        },
-        linkBody:{
-            type: String,
-            required: true
-        }
-    },
-    { timestamps: true }
-)
-
 const userSchema = new mongoose.Schema(
     {
         username:{
@@ -48,7 +34,16 @@ const userSchema = new mongoose.Schema(
         //     type: Number,
         //     default: 0
         // },
-        userLinks:[linkSchema]
+        userLinks:[{ 
+            linkName:{
+                type: String,
+                required: true
+            },
+            linkBody:{
+                type: String,
+                required: true
+            }
+        }]
     },
     { timestamps: true }
 )

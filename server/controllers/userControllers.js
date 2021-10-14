@@ -1,5 +1,8 @@
 const User = require("../model/User")
 const passport = require("passport")
+const mongoose = require("mongoose")
+
+// AUTHENTICATION
 exports.signUpUser = async (req,res) => {
     const { username, name, email, password } = req.body;
 
@@ -39,9 +42,95 @@ exports.isLoggedIn = async(req, res, next) => {
     if (req.user) {
         next();
     } else {
-        res.json('Not signed in')
+        res.json('Please sign in first.')
     }
 }
+
 exports.isLoggedInTest = async( req, res) => {
     return res.json({message: "Hello"})
+}
+
+exports.isAuthenticated = async (req, res, next) => {
+    const {id} =req.params; 
+    if(req.user.username == id){
+        next();
+    }else{
+        res.json(`You are not allowed to edit other's profiles`)
+    }
+}
+
+exports.isAuthenticatedTest = async (req,res) => {
+    return res.json({message: "Successfully authenticated"})
+}
+
+//  PROFILES AND LINKS
+
+exports.showUserProfile = async (req,res) => {
+    const {id} = req.params
+    
+    User.find({username: id}, {'_id': 0, 'username': 1, 'name': 1, 'bio': 1, 'userLinks': 1}, function(err, docs) { 
+        if(err){
+            res.json(err)
+        }else{
+            res.json(docs)
+        }
+    })
+}
+
+exports.createLink = async (req,res) => {
+    const {id} = req.params
+    
+    // const { linkName, linkBody } = req.body;
+
+    // const newLink = new Link({ linkName, linkBody })
+
+    // try {
+    //     await newLink.save();
+    //     res.status(201).json(`${id}`);
+    // } catch (error) {
+    //     res.status(409).json({ message: error.message });
+    // }
+    var unconvertedUserDBId = {}
+    User.find({username: id}, {'_id': 1}, function(err, docs) { 
+        if(err){
+            res.json(err)
+        }else{
+            unconvertedUserDBId = docs
+        }
+    })
+    var userDBId = mongoose.Types.ObjectId(unconvertedUserDBId)
+    User.findByIdAndUpdate(userDBId, {linkName: req.body, linkBody: req.body}, function(error, docs){
+        if(error){
+            res.json(error)
+        }else{
+            res.json(docs)
+        }
+    })
+}
+
+exports.editLink = async (req,res) => {
+
+}
+
+exports.deleteLink = async (req,res) => {
+    
+}
+
+//BIO
+
+exports.editBio = async (req, res) => {
+    
+}
+
+// Testing to see how to take username from url and show details of user
+exports.urlTest = async (req,res) => {
+    const {id} = req.params
+    
+    User.find({username: id}, {'_id': 0, 'username': 1, 'name': 1, 'bio': 1, 'userLinks': 1}, function(err, docs) { 
+        if(err){
+            res.json(err)
+        }else{
+            res.json(docs)
+        }
+    })
 }
