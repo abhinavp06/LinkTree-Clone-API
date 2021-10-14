@@ -47,7 +47,15 @@ exports.isLoggedIn = async(req, res, next) => {
 }
 
 exports.isLoggedInTest = async( req, res) => {
-    return res.json({message: "Hello"})
+    return res.json({message: `${req.user.username} is currently logged in!`})
+}
+// If someone is logged in, they cannot sign up as a new user. They need to logout.
+exports.signUpChecker = async (req,res, next) => {
+    if(req.user){
+        res.json(`Please sign out first.`)
+    }else{
+        next()
+    }
 }
 
 exports.isAuthenticated = async (req, res, next) => {
