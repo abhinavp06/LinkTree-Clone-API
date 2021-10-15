@@ -49,6 +49,7 @@ exports.isLoggedIn = async(req, res, next) => {
 exports.isLoggedInTest = async( req, res) => {
     return res.json({message: `${req.user.username} is currently logged in!`})
 }
+
 // If someone is logged in, they cannot sign up as a new user. They need to logout.
 exports.signUpChecker = async (req,res, next) => {
     if(req.user){
@@ -118,17 +119,57 @@ exports.createLink = async (req,res) => {
 }
 
 exports.editLink = async (req,res) => {
-
+    const {id, linkId} = req.params
+    User.findOneAndUpdate(
+        { "_id": req.user._id, "userLinks._id": linkId },
+        { 
+            "$set": {
+                "userLinks.$": req.body
+            }
+        },
+        function(err,doc) {
+            if(err){
+                res.json(err)
+            }else[
+                res.json(`Link updated`)
+            ]
+        }
+    );
 }
 
 exports.deleteLink = async (req,res) => {
-    
+    const {id, linkId} = req.params
+    User.findByIdAndUpdate(
+        req.user._id,
+       { $pull: { 'userLinks': {  _id: linkId } } },function(err,model){
+          if(err){
+               console.log(err);
+               return res.send(err);
+            }
+            return res.json(`Link deleted`);
+        });
 }
 
-//BIO
+// BIO
 
 exports.editBio = async (req, res) => {
-    
+
+    User.findOneAndUpdate(
+        { "_id": req.user._id },
+        { 
+            "$set": {
+                "bio.$": req.body
+            }
+        },
+        function(err,doc) {
+            if(err){
+                console.log(err)
+                res.json(err)
+            }else[
+                res.json(`Bio updated`)
+            ]
+        }
+    );
 }
 
 // Testing to see how to take username from url and show details of user

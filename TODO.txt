@@ -5,6 +5,5 @@ SERVER:
             3. Storing profile pic of user. (Later)
             4. isPremium user (change bio, change default profile pic, max number of links: 4(default), 8(premium)) (Later)
 
-            Update and Delete links
             Edit Bio
         
