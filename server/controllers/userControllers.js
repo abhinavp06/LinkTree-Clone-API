@@ -154,22 +154,23 @@ exports.deleteLink = async (req,res) => {
 
 exports.editBio = async (req, res) => {
 
-    User.findOneAndUpdate(
-        { "_id": req.user._id },
-        { 
-            "$set": {
-                "bio.$": req.body
-            }
-        },
-        function(err,doc) {
-            if(err){
-                console.log(err)
-                res.json(err)
-            }else[
-                res.json(`Bio updated`)
-            ]
+    var input = JSON.stringify(req.body);
+
+    var fields = input.split('"');
+
+    var newBio = fields[3];
+
+    if(newBio.length > 150){
+        return res.json(`Bio cannot be more than 150 characters`)
+    }else{
+        try {
+            await User.findByIdAndUpdate(req.user._id, { bio: newBio });
+            res.json(`Bio updated`)
+        }catch (err) {
+            res.json(err)
         }
-    );
+    }
+
 }
 
 // Testing to see how to take username from url and show details of user

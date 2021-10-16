@@ -20,8 +20,9 @@ router.post('/:id', urlTest)
 router.get('/:id', ifProfileExists, showUserProfile)
 
 // PUT ROUTES
-router.put('/:id/edit/:linkId', isLoggedIn, isAuthenticated, editLink)
 router.put('/:id/edit/bio', isLoggedIn, isAuthenticated, editBio)
+router.put('/:id/edit/:linkId', isLoggedIn, isAuthenticated, editLink)
+
 
 // DELETE ROUTES
 router.delete('/:id/delete/:linkId', isLoggedIn, isAuthenticated, deleteLink)
