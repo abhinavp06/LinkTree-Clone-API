@@ -12,10 +12,10 @@ Just like in https://linktr.ee/ , a user can sign up and have multiple links dis
 ####      5. To send requests to the API, a Postman JSON file has been added in the repository. Load the JSON file in Postman and send requests.
 
 ## FEATURES:
-### 1. Authentication using **passport.js** (sign in, sign up, sign out).
-### 2. Relevant middlewares (for example: a user cannot edit some other user's links, bio).
-### 3. CRUD operations on links.
+#### 1. Authentication using **passport.js** (sign in, sign up, sign out).
+#### 2. Relevant middlewares (for example: a user cannot edit some other user's links, bio).
+#### 3. CRUD operations on links.
 
 ## TO BE ADDED:
-### 1. A premium user feature where a normal user can only have 5 links but a premium user can have 12.
-### 2. A profile picture for the user.
+#### 1. A premium user feature where a normal user can only have 5 links but a premium user can have 12.
+#### 2. A profile picture for the user.
