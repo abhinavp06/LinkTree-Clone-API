@@ -1,9 +1,0 @@
-SERVER:
-        User Model:
-            1. Hashing and storing passwords. DONE
-            2. SignIn, SignOut user DONE
-            3. Storing profile pic of user. (Later)
-            4. isPremium user (change bio, change default profile pic, max number of links: 4(default), 8(premium)) (Later)
-
-            Edit Bio
-        
