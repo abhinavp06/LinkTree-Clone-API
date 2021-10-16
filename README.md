@@ -1,7 +1,8 @@
 # LinkTree-Clone-API
 Just like in https://linktr.ee/ , a user can sign up and have multiple links displayed.
 
-## Stack Used: MongoDB (as the server), Mongoose, Express, Node.js
+## Stack Used:
+### MongoDB (as the server), Mongoose, Express, Node.js
 
 ## INSTRUCTIONS:
 ### To run this API:
