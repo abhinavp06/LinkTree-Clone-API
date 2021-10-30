@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
             linkName: String,
             linkBody: String
         }],
+        profileLink: String
     },
     { timestamps: true }
 )

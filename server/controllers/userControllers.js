@@ -2,11 +2,18 @@ const User = require("../model/User")
 const passport = require("passport")
 const mongoose = require("mongoose")
 
+// CUSTOM METHOD TO GENERATE PROFILE LINK
+function profileLinkGenerator(username){
+    return process.env.PROFILE_LINK_HEAD + process.env.PORT + '/' + username
+}
+
 // AUTHENTICATION
 exports.signUpUser = async (req,res) => {
     const { username, name, email, password } = req.body;
 
-    const newUser = new User({ username, name, email, password })
+    const profileLink = profileLinkGenerator(username)
+
+    const newUser = new User({ username, name, email, password, profileLink })
 
     try {
         await newUser.save();
