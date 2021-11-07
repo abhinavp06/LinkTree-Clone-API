@@ -20,4 +20,3 @@ Just like in https://linktr.ee/ , a user can sign up and have multiple links dis
 ## TO BE ADDED:
 #### 1. A premium user feature where a normal user can only have 5 links but a premium user can have 12.
 #### 2. A profile picture for the user.
-#### 3. Implement Multiple Local User Authentication Strategies in Passport.js
