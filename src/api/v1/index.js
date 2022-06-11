@@ -3,8 +3,12 @@ const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
 const session = require("express-session")
-// const passport = require("./config/Passport_Setup")
+const passport = require("./config/Passport_Setup")
 const { setUpMongo } = require("../../serverConfig/MongoDB_Setup")
+
+// IMPORTING ROUTES
+const authRoutes = require("./routes/auth")
+const testRoutes = require("./routes/test")
 
 const app = express()
 
@@ -20,21 +24,22 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }))
-// try{
-//     app.use(passport.initialize())
-//     app.use(passport.session())
-//     console.log(`PASSPORT SETUP COMPLETE`)
-// }catch(error){
-//     console.log(error)
-// }
+try{
+    app.use(passport.initialize())
+    app.use(passport.session())
+    console.log(`PASSPORT SETUP COMPLETE`)
+}catch(error){
+    console.log(error)
+}
 
 //ROUTES
 app.get("/", (req,res) => {
     res.status(200).send("🤖")
 })
-
+app.use("/v1/auth", authRoutes)
+app.use("/v1/test", testRoutes)
 app.get("*", function(req, res) {
-    res.status(404).send("Invalid URL");
+    res.status(404).json({message: `Invalid URL!`});
 })
 
 //PORT

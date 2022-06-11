@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const hashPassword = require("../helpers/hashPassword")
+const bcrypt = require("bcrypt")
 
 const userSchema = new mongoose.Schema(
     {
@@ -31,9 +31,9 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-customerSchema.pre('save', async function (next){
+userSchema.pre('save', async function (next){
     try{
-        const hashedPassword = await hashPassword(this.password) // hashing the plain password
+        const hashedPassword = await bcrypt.hash(this.password.toString(), 10) // hashing the plain password
         this.password = hashedPassword
         next()
     }catch(error){
