@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/api/v2/index.js",
-    "v2_API_DEV": "nodemon src/api/v2/index.js"
+    "start": "node src/api/v1/index.js",
+    "v1_API_DEV": "nodemon src/api/v1/index.js"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,6 @@ const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
 const session = require("express-session")
-const mongoose = require("mongoose")
 // const passport = require("./config/Passport_Setup")
 const { setUpMongo } = require("../../serverConfig/MongoDB_Setup")
 

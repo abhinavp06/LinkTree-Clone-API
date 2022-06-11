@@ -1,6 +1,12 @@
 # LinkTree-Clone-API
 Just like in https://linktr.ee/ , a user can sign up and have multiple links displayed.
 
+## NOTE
+This is the previous version of the Linktree API.
+It runs on a localhost server.
+
+The newer version of this API will be completely rewritten and remote.
+
 ## Technology Used:
 ### MongoDB, Mongoose, Express, Node.js
 
