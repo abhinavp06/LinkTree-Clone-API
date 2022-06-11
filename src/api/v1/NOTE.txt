@@ -1,0 +1,4 @@
+This is the previous version of the Linktree API.
+It runs on a localhost server.
+
+Version 2 of this API will be completely rewritten and remote.
