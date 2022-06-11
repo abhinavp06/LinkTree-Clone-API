@@ -4,7 +4,9 @@
   "description": "Just like in https://linktr.ee/ , a user can sign up and have multiple links displayed.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/api/v2/index.js",
+    "v2_API_DEV": "nodemon src/api/v2/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,23 @@
   "bugs": {
     "url": "https://github.com/abhinavp06/LinkTree-Clone-API-/issues"
   },
-  "homepage": "https://github.com/abhinavp06/LinkTree-Clone-API-#readme"
+  "homepage": "https://github.com/abhinavp06/LinkTree-Clone-API-#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.3.6",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.7.5",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
