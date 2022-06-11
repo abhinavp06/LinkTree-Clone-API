@@ -1,0 +1,20 @@
+{
+  "name": "linktree-clone",
+  "version": "1.0.0",
+  "description": "Just like in https://linktr.ee/ , a user can sign up and have multiple links displayed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhinavp06/LinkTree-Clone-API-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhinavp06/LinkTree-Clone-API-/issues"
+  },
+  "homepage": "https://github.com/abhinavp06/LinkTree-Clone-API-#readme"
+}
