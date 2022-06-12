@@ -1,3 +1,10 @@
+/*
+    POST:
+        sign up
+        sign in
+        sign out
+*/
+
 const User = require("../models/User");
 const passport = require("passport");
 const { sendRegistrationEmail } = require("../services/EmailSender");

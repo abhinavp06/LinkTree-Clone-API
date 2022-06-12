@@ -9,6 +9,8 @@ const { setUpMongo } = require("../../serverConfig/MongoDB_Setup")
 // IMPORTING ROUTES
 const authRoutes = require("./routes/auth")
 const testRoutes = require("./routes/test")
+const userRoutes = require("./routes/user")
+const { getUserByUsername } = require("./controllers/user")
 
 const app = express()
 
@@ -36,8 +38,10 @@ try{
 app.get("/", (req,res) => {
     res.status(200).send("🤖")
 })
+app.get("/:username", getUserByUsername)
 app.use("/v1/auth", authRoutes)
 app.use("/v1/test", testRoutes)
+app.use("/v1/user", userRoutes)
 app.get("*", function(req, res) {
     res.status(404).json({message: `Invalid URL!`});
 })
