@@ -10,6 +10,7 @@ const { setUpMongo } = require("../../serverConfig/MongoDB_Setup")
 const authRoutes = require("./routes/auth")
 const testRoutes = require("./routes/test")
 const userRoutes = require("./routes/user")
+const linkRoutes = require("./routes/link")
 const { getUserByUsername } = require("./controllers/user")
 
 const app = express()
@@ -42,6 +43,7 @@ app.get("/:username", getUserByUsername)
 app.use("/v1/auth", authRoutes)
 app.use("/v1/test", testRoutes)
 app.use("/v1/user", userRoutes)
+app.use("/v1/link", linkRoutes)
 app.get("*", function(req, res) {
     res.status(404).json({message: `Invalid URL!`});
 })
